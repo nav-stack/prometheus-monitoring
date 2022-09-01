@@ -2,13 +2,13 @@ variable "awsprops" {
   type = map(string)
   default = {
     region       = "ap-northeast-1"
-    vpc          = "vpc-0221805bfb420dcb5"
-    ami          = "ami-0f36dcfcc94112ea1"
+    vpc          = "vpc-022180xxxxxxxxxxx"                      # replace with your VPC id
+    ami          = "ami-0f36dcxxxxxxxxxxx"                      # replace with your ami id
     itype        = "t2.micro"
-    subnet       = "subnet-0eeb3e9267b2d6bbf"
+    subnet       = "subnet-0eebxxxxxxxxxxxx"                    # replace with your subnet id
     publicip     = true
-    keyname      = "nav-prometheus"
-    secgroupname = "nav-p-sg"
+    keyname      = "prome-key"                                  # replace with your keypair name
+    secgroupname = "nav-p-sg"                                   
   }
 }
 
@@ -16,18 +16,18 @@ provider "aws" {
   region = lookup(var.awsprops, "region")
 }
 
-data "aws_security_group" "nav-prome-sg" {
-  id = "sg-08f826afca633c2e5"
+data "aws_security_group" "nav-prome-sg" {                      # replace with your security group name
+  id = "sg-08f826afca633c2e5"                                   # replace with your security group id
 }
 
 
 resource "aws_instance" "project-iac" {
   ami                         = lookup(var.awsprops, "ami")
   instance_type               = lookup(var.awsprops, "itype")
-  subnet_id                   = lookup(var.awsprops, "subnet") #FFXsubnet2
+  subnet_id                   = lookup(var.awsprops, "subnet") 
   associate_public_ip_address = lookup(var.awsprops, "publicip")
   key_name                    = lookup(var.awsprops, "keyname")
-  user_data                   = file("install_prometheus-ext.sh")
+  user_data                   = file("install_prometheus-ext.sh")           # replace user data files from this line
 
   vpc_security_group_ids = [data.aws_security_group.nav-prome-sg.id]
 
@@ -44,10 +44,10 @@ resource "aws_instance" "project-iac" {
 resource "aws_instance" "project-iac1" {
   ami                         = lookup(var.awsprops, "ami")
   instance_type               = lookup(var.awsprops, "itype")
-  subnet_id                   = lookup(var.awsprops, "subnet") #FFXsubnet2
+  subnet_id                   = lookup(var.awsprops, "subnet") 
   associate_public_ip_address = lookup(var.awsprops, "publicip")
   key_name                    = lookup(var.awsprops, "keyname")
-  user_data                   = file("install_node-exporter-ext.sh")
+  user_data                   = file("install_node-exporter-ext.sh")        # replace user data files from this line
 
   vpc_security_group_ids = [data.aws_security_group.nav-prome-sg.id]
 
