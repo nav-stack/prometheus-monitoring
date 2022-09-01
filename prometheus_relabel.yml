@@ -25,3 +25,4 @@ scrape_configs:
         # instance label
       - source_labels: [__meta_ec2_tag_Name]
         target_label: instance
+
