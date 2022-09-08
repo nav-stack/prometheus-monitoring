@@ -1,8 +1,12 @@
-it is the Smaple
+it is the Sample
 just Download the teraform folder on local system
 
-Basic Requirement
-  Aws 
-  terraform 
+# Basic Requirement
+ 1. Aws 
+ 2. terraform 
 
-Add your aws Credentials and
+Add your aws Credentials and 
+  terraform init
+  terraform validate       
+  terraform apply
+  
